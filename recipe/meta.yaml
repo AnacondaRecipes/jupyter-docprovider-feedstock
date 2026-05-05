@@ -24,17 +24,16 @@ requirements:
   run:
     - python
 
-tests:
-  - python:
-      imports: jupyter_docprovider
-      pip_check: true
-  - requirements:
-      run:
-        - jupyterlab
-        - python
-    script:
-      - jupyter labextension list
-      - jupyter labextension list --debug 2>&1 | ${{ grep }} "docprovider-extension.*OK"
+test:
+  imports:
+    - jupyter_docprovider
+  requires:
+    - jupyterlab
+  commands:
+    - pip check
+    - jupyter labextension list
+    - jupyter labextension list --debug 2>&1 |  grep "docprovider-extension.*OK"  # [unix]
+    - jupyter labextension list --debug 2>&1 |  findstr /c "docprovider-extension.*OK"  # [win]
 
 about:
   summary: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
