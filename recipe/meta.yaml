@@ -16,15 +16,13 @@ build:
 
 requirements:
   host:
-    - jupyterlab >=${{ jupyterlab_min }},<${{ jupyterlab_max }}
+    - jupyterlab >=4.0.0
     - hatch-jupyter-builder >=0.5
     - hatchling >=1.4.0
     - pip
     - python
   run:
     - python
-  run_constraints:
-    - jupyterlab >=${{ jupyterlab_min }},<${{ jupyterlab_max }}
 
 tests:
   - python:
