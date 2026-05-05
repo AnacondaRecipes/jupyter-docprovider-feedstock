@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  noarch: python
+  skip: true  # [py<38]
   script:
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
 
@@ -21,9 +21,9 @@ requirements:
     - hatch-jupyter-builder >=0.5
     - hatchling >=1.4.0
     - pip
-    - python ${{ python_min }}.*
+    - python
   run:
-    - python >=${{ python_min }}
+    - python
   run_constraints:
     - jupyterlab >=${{ jupyterlab_min }},<${{ jupyterlab_max }}
 
@@ -31,13 +31,10 @@ tests:
   - python:
       imports: jupyter_docprovider
       pip_check: true
-      python_version:
-        - ${{ python_min }}.*
-        - ${{ python_check_max }}.*
   - requirements:
       run:
         - jupyterlab
-        - python ${{ python_min }}.*
+        - python
     script:
       - jupyter labextension list
       - jupyter labextension list --debug 2>&1 | ${{ grep }} "docprovider-extension.*OK"
