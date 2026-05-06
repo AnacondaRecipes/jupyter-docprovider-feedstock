@@ -23,6 +23,8 @@ requirements:
     - python
   run:
     - python
+  run_constrained:
+    - jupyterlab >=4.0.0
 
 test:
   imports:
