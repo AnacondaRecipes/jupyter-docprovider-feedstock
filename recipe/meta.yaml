@@ -33,7 +33,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - jupyter labextension list
-    - jupyter labextension list --debug 2>&1 |  grep "docprovider-extension.*OK"        # [unix]
+    - jupyter labextension list --debug 2>&1 |  grep -iE "docprovider-extension.*OK"    # [unix]
     - jupyter labextension list --debug 2>&1 |  findstr /c "docprovider-extension.*OK"  # [win]
 
 about:
