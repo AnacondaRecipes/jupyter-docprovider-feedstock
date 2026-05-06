@@ -29,6 +29,7 @@ test:
     - jupyter_docprovider
   requires:
     - jupyterlab
+    - pip
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
