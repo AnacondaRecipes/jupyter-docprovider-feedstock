@@ -42,6 +42,7 @@ about:
   summary: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
   description: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
   license: BSD-3-Clause
+  license_family: BSD
   license_file:
     - LICENSE
     - jupyter_docprovider/labextension/static/third-party-licenses.json
