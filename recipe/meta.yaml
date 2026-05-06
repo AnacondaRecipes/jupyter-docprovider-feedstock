@@ -38,14 +38,15 @@ test:
     - jupyter labextension list --debug 2>&1 |  findstr /r /i "docprovider-extension.*OK"  # [win]
 
 about:
+  home: https://pypi.org/project/jupyter-docprovider
   summary: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
+  description: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
   license: BSD-3-Clause
   license_file:
     - LICENSE
     - jupyter_docprovider/labextension/static/third-party-licenses.json
-  homepage: https://pypi.org/project/jupyter-docprovider
-  repository: https://github.com/jupyterlab/jupyter-collaboration
-  documentation: https://jupyterlab-realtime-collaboration.readthedocs.io
+  dev_url: https://github.com/jupyterlab/jupyter-collaboration
+  doc_url: https://jupyterlab-realtime-collaboration.readthedocs.io
 
 extra:
   recipe-maintainers:
