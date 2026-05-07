@@ -16,7 +16,8 @@ build:
 
 requirements:
   host:
-    - jupyterlab >=4.0.0
+    # jupyterlab's major versions are incompatible. Introduce recipe max bound.
+    - jupyterlab >=4.0.0,<5.0.0
     - hatch-jupyter-builder >=0.5
     - hatchling >=1.4.0
     - pip
@@ -24,7 +25,7 @@ requirements:
   run:
     - python
   run_constrained:
-    - jupyterlab >=4.0.0
+    - jupyterlab >=4.0.0,<5.0.0
 
 test:
   imports:
