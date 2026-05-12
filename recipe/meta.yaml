@@ -1,0 +1,58 @@
+{% set name = "jupyter-docprovider" %}
+{% set version = "2.3.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-','_') }}-{{ version }}.tar.gz
+  sha256: c09808e15e93f2ea4ff194a18c7a8c8f83d81049fa91b09de24b09adeac9d572
+
+build:
+  number: 0
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+
+requirements:
+  host:
+    # jupyterlab's major versions are incompatible. Introduce recipe max bound.
+    - jupyterlab >=4.0.0,<5.0.0
+    - hatch-jupyter-builder >=0.5
+    - hatchling >=1.4.0
+    - pip
+    - python
+  run:
+    - python
+  run_constrained:
+    - jupyterlab >=4.0.0,<5.0.0
+
+test:
+  imports:
+    - jupyter_docprovider
+  requires:
+    - jupyterlab
+    - pip
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - jupyter labextension list
+    - jupyter labextension list --debug 2>&1 |  grep -iE "docprovider-extension.*OK"    # [unix]
+    - jupyter labextension list --debug 2>&1 |  findstr /r /i "docprovider-extension.*OK"  # [win]
+
+about:
+  home: https://pypi.org/project/jupyter-docprovider
+  summary: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
+  description: JupyterLab/Jupyter Notebook 7+ extension integrating collaborative shared models.
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file:
+    - LICENSE
+    - jupyter_docprovider/labextension/static/third-party-licenses.json
+  dev_url: https://github.com/jupyterlab/jupyter-collaboration
+  doc_url: https://jupyterlab-realtime-collaboration.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - conda-forge/jupyter-collaboration
+    - bollwyvl
