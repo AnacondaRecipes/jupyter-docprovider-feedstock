@@ -1,5 +1,5 @@
 {% set name = "jupyter-docprovider" %}
-{% set version = "2.3.0" %}
+{% set version = "3.0.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-','_') }}-{{ version }}.tar.gz
-  sha256: c09808e15e93f2ea4ff194a18c7a8c8f83d81049fa91b09de24b09adeac9d572
+  sha256: c8ee3d35bb9a5803856413e447b1b9bd80ce17b27ac6d2da623e1ca4447f2c8c
 
 build:
   number: 0
@@ -16,8 +16,11 @@ build:
 
 requirements:
   host:
-    # jupyterlab's major versions are incompatible. Introduce recipe max bound.
-    - jupyterlab >=4.0.0,<5.0.0
+    # The prebuilt labextension declares @jupyterlab/* ^4.6.0 and @jupyter/ydoc ^4.0.0,
+    # so it is only compatible with jupyterlab >=4.6 (@jupyter/ydoc 4 landed in
+    # jupyterlab 4.6.0). With 2.3.0 the extension was reported as incompatible ("X")
+    # by `jupyter labextension list` against jupyterlab 4.6.4.
+    - jupyterlab >=4.6.0,<5.0.0
     - hatch-jupyter-builder >=0.5
     - hatchling >=1.4.0
     - pip
@@ -25,13 +28,13 @@ requirements:
   run:
     - python
   run_constrained:
-    - jupyterlab >=4.0.0,<5.0.0
+    - jupyterlab >=4.6.0,<5.0.0
 
 test:
   imports:
     - jupyter_docprovider
   requires:
-    - jupyterlab
+    - jupyterlab >=4.6.0,<5.0.0
     - pip
   commands:
     - pip check
